@@ -1,0 +1,82 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "domain:2ip.io",
+          "domain:2ip.ru",
+          "domain:whatismyipaddress.com",
+          "domain:whatismyip.com",
+          "domain:ipinfo.io",
+          "domain:ip-api.com",
+          "domain:api.ipify.org",
+          "domain:ifconfig.me",
+          "domain:checkip.amazonaws.com",
+          "domain:icanhazip.com",
+          "domain:myip.com"
+        ],
+        "outboundTag": "BLOCK"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "BLOCK"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "VLESS gRPC REALITY",
+      "listen": "0.0.0.0",
+      "port": 8443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "grpc"
+        },
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "github.com:443",
+          "xver": 0,
+          "serverNames": [
+            "github.com"
+          ],
+          "privateKey": "private key",
+          "shortIds": [
+            "a1b2c3d4e5f60708"
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "DIRECT"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "BLOCK"
+    }
+  ]
+}

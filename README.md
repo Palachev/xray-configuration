@@ -25,3 +25,15 @@ It routes traffic based on rules (e.g., direct for specific regions) and sends a
 
 References:
 - [Remnawave Documentation - Server Routing](https://docs.rw/docs/learn/server-routing)
+
+### 4. `vless-tcp-reality.json`
+This file contains the optimal VLESS TCP REALITY configuration, incorporating specific routing and blocking rules.
+
+### 5. `vless-grpc-reality.json`
+This file contains the optimal VLESS gRPC REALITY configuration, maintaining standard routing and blocking rules.
+
+### 6. `vless-xhttp-reality.json`
+This file contains the optimal VLESS XHTTP REALITY configuration, providing robust connection obfuscation with standard routing rules.
+
+### 7. `trojan-ws-tls.json`
+This file contains the optimal Trojan WebSocket TLS configuration, maintaining standard routing and blocking rules.
