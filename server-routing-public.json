@@ -1,0 +1,57 @@
+{
+    "log": { "loglevel": "none" },
+    "inbounds": [
+        {
+            "tag": "PUBLIC_RU_INBOUND",
+            "port": 443,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "settings": { "clients": [], "decryption": "none" },
+            "sniffing": { "enabled": true, "destOverride": ["http", "tls", "quic"] },
+            "streamSettings": {
+                "network": "raw",
+                "security": "reality",
+                "realitySettings": {
+                    "target": "USE OWN VALUE!",
+                    "show": false,
+                    "xver": 0,
+                    "shortIds": [""],
+                    "privateKey": "USE OWN KEY!",
+                    "serverNames": ["REPLACE WITH OWN VALUES!"]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        { "protocol": "freedom", "tag": "DIRECT" },
+        { "protocol": "blackhole", "tag": "BLOCK" },
+        {
+            "tag": "SS_OUTBOUND_TO_DE",
+            "protocol": "shadowsocks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "ADDRESS OF DE-001",
+                        "password": "ПАРОЛЬ С ПРОШЛОГО ШАГА",
+                        "port": 9999,
+                        "level": 0,
+                        "method": "chacha20-ietf-poly1305"
+                    }
+                ]
+            }
+        }
+    ],
+    "routing": {
+        "rules": [
+            { "ip": ["geoip:private"], "outboundTag": "BLOCK" },
+            { "domain": ["geosite:private"], "outboundTag": "BLOCK" },
+            { "protocol": ["bittorrent"], "outboundTag": "BLOCK" },
+            { "ip": ["geoip:ru"], "outboundTag": "DIRECT" },
+            { "domain": ["geosite:category-ru"], "outboundTag": "DIRECT" },
+            {
+                "inboundTag": ["PUBLIC_RU_INBOUND"],
+                "outboundTag": "SS_OUTBOUND_TO_DE"
+            }
+        ]
+    }
+}
