@@ -1,0 +1,35 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "dns": {},
+    "inbounds": [
+        {
+            "tag": "BRIDGE_DE_IN",
+            "port": 9999,
+            "listen": "0.0.0.0",
+            "protocol": "shadowsocks",
+            "settings": {
+                "clients": [],
+                "network": "tcp,udp"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": ["http", "tls", "quic"]
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "DIRECT",
+            "protocol": "freedom"
+        },
+        {
+            "tag": "BLOCK",
+            "protocol": "blackhole"
+        }
+    ],
+    "routing": {
+        "rules": []
+    }
+}
