@@ -1,0 +1,75 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+            "domain:2ip.io",
+            "domain:2ip.ru",
+            "domain:whatismyipaddress.com",
+            "domain:whatismyip.com",
+            "domain:ipinfo.io",
+            "domain:ip-api.com",
+            "domain:api.ipify.org",
+            "domain:ifconfig.me",
+            "domain:checkip.amazonaws.com",
+            "domain:icanhazip.com",
+            "domain:myip.com"
+        ],
+        "outboundTag": "BLOCK"
+      },
+      {
+        "type": "field",
+        "ip": [
+            "geoip:private"
+        ],
+        "outboundTag": "BLOCK"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "HYSTERIA2",
+      "listen": "0.0.0.0",
+      "port": 443,
+      "protocol": "hysteria2",
+      "settings": {
+        "users": [],
+        "ignoreClientBandwidth": false
+      },
+      "streamSettings": {
+        "network": "hysteria2",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/path/to/cert.crt",
+              "keyFile": "/path/to/key.key"
+            }
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "DIRECT"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "BLOCK"
+    }
+  ]
+}
