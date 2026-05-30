@@ -34,36 +34,19 @@
   },
   "inbounds": [
     {
-      "tag": "VLESS WS TLS",
+      "tag": "SHADOWSOCKS-2022",
       "listen": "0.0.0.0",
-      "port": 443,
-      "protocol": "vless",
+      "port": 8443,
+      "protocol": "shadowsocks",
       "settings": {
         "clients": [],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "tls",
-        "tlsSettings": {
-          "certificates": [
-            {
-              "certificateFile": "/path/to/cert.crt",
-              "keyFile": "/path/to/key.key"
-            }
-          ]
-        },
-        "wsSettings": {
-          "path": "/vless-ws"
-        }
+        "method": "2022-blake3-aes-128-gcm",
+        "password": "USE OWN KEY! RUN: openssl rand -base64 16",
+        "network": "tcp,udp"
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ]
+        "destOverride": ["http", "tls", "quic"]
       }
     }
   ],

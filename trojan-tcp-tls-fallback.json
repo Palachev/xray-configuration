@@ -34,36 +34,45 @@
   },
   "inbounds": [
     {
-      "tag": "VLESS WS TLS",
+      "tag": "TROJAN FALLBACK",
       "listen": "0.0.0.0",
       "port": 443,
-      "protocol": "vless",
+      "protocol": "trojan",
       "settings": {
         "clients": [],
-        "decryption": "none"
+        "fallbacks": [
+          {
+            "dest": 8080
+          }
+        ]
       },
       "streamSettings": {
-        "network": "ws",
+        "network": "tcp",
         "security": "tls",
         "tlsSettings": {
+          "alpn": ["http/1.1"],
           "certificates": [
             {
               "certificateFile": "/path/to/cert.crt",
               "keyFile": "/path/to/key.key"
             }
           ]
-        },
-        "wsSettings": {
-          "path": "/vless-ws"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ]
+        "destOverride": ["http", "tls", "quic"]
+      }
+    },
+    {
+      "tag": "FALLBACK-WEB",
+      "listen": "127.0.0.1",
+      "port": 8080,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "1.1.1.1",
+        "port": 80,
+        "network": "tcp"
       }
     }
   ],

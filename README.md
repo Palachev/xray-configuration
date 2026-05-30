@@ -50,3 +50,16 @@ The optimal Trojan WebSocket TLS configuration.
 References:
 - [Remnawave Documentation - Xray JSON Advanced](https://docs.rw/docs/learn/xray-json-advanced/)
 - [Remnawave Documentation - Server Routing](https://docs.rw/docs/learn/server-routing)
+
+### 9. Trojan TCP TLS Fallback (`trojan-tcp-tls-fallback.json`)
+The optimal Trojan TCP TLS configuration with a fallback mechanism.
+**Usage:** When someone (or a firewall probe) connects to your server on port 443 without the correct Trojan password, they are seamlessly forwarded to the fallback port (e.g., a fake web server or external site like 1.1.1.1). Extremely effective against active probing.
+
+### 10. Shadowsocks-2022 (`shadowsocks-2022.json`)
+The optimal Shadowsocks-2022 configuration (`2022-blake3-aes-128-gcm`).
+**Usage:** Shadowsocks-2022 offers significant performance and security improvements over legacy Shadowsocks. Excellent for bypassing restrictive networks where TLS obfuscation is heavily scrutinized or blocked entirely, as SS-2022 looks like pure random UDP/TCP noise.
+
+---
+### FAQ
+**Why is there no Hysteria 2.0 configuration?**
+Xray-core (which Remnawave is built on top of) does not natively support Hysteria 2 as an inbound protocol. While Hysteria 2 is excellent, it requires a different core engine (like Sing-Box or the standalone Hysteria binaries) to run. Therefore, it is impossible to configure Hysteria 2 natively through Xray JSON in this panel.

@@ -9,10 +9,10 @@
             "settings": { "clients": [], "decryption": "none" },
             "sniffing": { "enabled": true, "destOverride": ["http", "tls", "quic"] },
             "streamSettings": {
-                "network": "raw",
+                "network": "tcp",
                 "security": "reality",
                 "realitySettings": {
-                    "target": "USE OWN VALUE!",
+                    "dest": "USE OWN VALUE!",
                     "show": false,
                     "xver": 0,
                     "shortIds": [""],
