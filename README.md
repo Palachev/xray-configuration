@@ -46,10 +46,6 @@ The optimal VLESS WebSocket configuration utilizing standard TLS.
 The optimal Trojan WebSocket TLS configuration.
 **Usage:** Similar to VLESS WS, this is ideal for passing traffic through a CDN, utilizing the Trojan protocol. Ensure you point the certificates to valid paths on your server.
 
-### 9. Hysteria 2.0 (`hysteria2.json`)
-The optimal Hysteria 2.0 configuration, maintaining the standard routing and blocking rules.
-**Usage:** A UDP-based protocol designed to be highly resilient against network packet loss and throttling. Provides excellent speeds on poor networks. Requires valid TLS certificates.
-
 ---
 References:
 - [Remnawave Documentation - Xray JSON Advanced](https://docs.rw/docs/learn/xray-json-advanced/)
