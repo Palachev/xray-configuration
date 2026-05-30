@@ -9,24 +9,24 @@
         "domain": [
           "ext:zapret.dat:zapret",
           "ext:zapret.dat:zapret-zapad",
-          "domain:2ip.io",
-          "domain:2ip.ru",
-          "domain:whatismyipaddress.com",
-          "domain:whatismyip.com",
-          "domain:ipinfo.io",
-          "domain:ip-api.com",
-          "domain:api.ipify.org",
-          "domain:ifconfig.me",
-          "domain:checkip.amazonaws.com",
-          "domain:icanhazip.com",
-          "domain:myip.com"
+            "domain:2ip.io",
+            "domain:2ip.ru",
+            "domain:whatismyipaddress.com",
+            "domain:whatismyip.com",
+            "domain:ipinfo.io",
+            "domain:ip-api.com",
+            "domain:api.ipify.org",
+            "domain:ifconfig.me",
+            "domain:checkip.amazonaws.com",
+            "domain:icanhazip.com",
+            "domain:myip.com"
         ],
         "outboundTag": "BLOCK"
       },
       {
         "type": "field",
         "ip": [
-          "geoip:private"
+            "geoip:private"
         ],
         "outboundTag": "BLOCK"
       }
@@ -34,18 +34,16 @@
   },
   "inbounds": [
     {
-      "tag": "TROJAN WS TLS",
+      "tag": "VLESS WS TLS",
       "listen": "0.0.0.0",
       "port": 443,
-      "protocol": "trojan",
+      "protocol": "vless",
       "settings": {
-        "clients": []
+        "clients": [],
+        "decryption": "none"
       },
       "streamSettings": {
         "network": "ws",
-        "wsSettings": {
-          "path": "/trojan"
-        },
         "security": "tls",
         "tlsSettings": {
           "certificates": [
@@ -54,6 +52,9 @@
               "keyFile": "/path/to/key.key"
             }
           ]
+        },
+        "wsSettings": {
+          "path": "/vless-ws"
         }
       },
       "sniffing": {

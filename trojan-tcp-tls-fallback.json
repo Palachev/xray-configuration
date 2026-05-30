@@ -9,24 +9,24 @@
         "domain": [
           "ext:zapret.dat:zapret",
           "ext:zapret.dat:zapret-zapad",
-          "domain:2ip.io",
-          "domain:2ip.ru",
-          "domain:whatismyipaddress.com",
-          "domain:whatismyip.com",
-          "domain:ipinfo.io",
-          "domain:ip-api.com",
-          "domain:api.ipify.org",
-          "domain:ifconfig.me",
-          "domain:checkip.amazonaws.com",
-          "domain:icanhazip.com",
-          "domain:myip.com"
+            "domain:2ip.io",
+            "domain:2ip.ru",
+            "domain:whatismyipaddress.com",
+            "domain:whatismyip.com",
+            "domain:ipinfo.io",
+            "domain:ip-api.com",
+            "domain:api.ipify.org",
+            "domain:ifconfig.me",
+            "domain:checkip.amazonaws.com",
+            "domain:icanhazip.com",
+            "domain:myip.com"
         ],
         "outboundTag": "BLOCK"
       },
       {
         "type": "field",
         "ip": [
-          "geoip:private"
+            "geoip:private"
         ],
         "outboundTag": "BLOCK"
       }
@@ -34,20 +34,23 @@
   },
   "inbounds": [
     {
-      "tag": "TROJAN WS TLS",
+      "tag": "TROJAN FALLBACK",
       "listen": "0.0.0.0",
       "port": 443,
       "protocol": "trojan",
       "settings": {
-        "clients": []
+        "clients": [],
+        "fallbacks": [
+          {
+            "dest": 8080
+          }
+        ]
       },
       "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/trojan"
-        },
+        "network": "tcp",
         "security": "tls",
         "tlsSettings": {
+          "alpn": ["http/1.1"],
           "certificates": [
             {
               "certificateFile": "/path/to/cert.crt",
@@ -58,11 +61,18 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ]
+        "destOverride": ["http", "tls", "quic"]
+      }
+    },
+    {
+      "tag": "FALLBACK-WEB",
+      "listen": "127.0.0.1",
+      "port": 8080,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "1.1.1.1",
+        "port": 80,
+        "network": "tcp"
       }
     }
   ],

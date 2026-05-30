@@ -1,0 +1,63 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "ext:zapret.dat:zapret",
+          "ext:zapret.dat:zapret-zapad",
+            "domain:2ip.io",
+            "domain:2ip.ru",
+            "domain:whatismyipaddress.com",
+            "domain:whatismyip.com",
+            "domain:ipinfo.io",
+            "domain:ip-api.com",
+            "domain:api.ipify.org",
+            "domain:ifconfig.me",
+            "domain:checkip.amazonaws.com",
+            "domain:icanhazip.com",
+            "domain:myip.com"
+        ],
+        "outboundTag": "BLOCK"
+      },
+      {
+        "type": "field",
+        "ip": [
+            "geoip:private"
+        ],
+        "outboundTag": "BLOCK"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "SHADOWSOCKS-2022",
+      "listen": "0.0.0.0",
+      "port": 8443,
+      "protocol": "shadowsocks",
+      "settings": {
+        "clients": [],
+        "method": "2022-blake3-aes-128-gcm",
+        "password": "USE OWN KEY! RUN: openssl rand -base64 16",
+        "network": "tcp,udp"
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "DIRECT"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "BLOCK"
+    }
+  ]
+}
